@@ -15,9 +15,8 @@
 
 IF YOU HAVE HEROKU:
 - `heroku local`
-
 IF NOT:
-`gunicorn -k eventlet -w 1 app:app --log-file=-`
+- `gunicorn -k eventlet -w 1 app:app --log-file=-`
 
 - in your browser, navigate to localhost:5000
 
