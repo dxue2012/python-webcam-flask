@@ -29,7 +29,6 @@ $(document).ready(function(){
   });
 
   socket.on('new image', function(newImageURL) {
-    console.log('got response from server:' + newImageURL);
     image.src = newImageURL;
   });
 
