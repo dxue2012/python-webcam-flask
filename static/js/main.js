@@ -3,34 +3,25 @@ $(document).ready(function(){
   let video = document.querySelector("#videoElement");
   let canvas = document.querySelector("#canvasElement");
   let ctx = canvas.getContext('2d');
-  let image = document.querySelector("#imageElement");
 
   var localMediaStream = null;
 
   var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
-  function sendImage(dataURL) {
-    socket.emit('input image', dataURL);
-  }
-
-  function snapshot() {
+  function sendSnapshot() {
     if (!localMediaStream) {
-      return null;
+      return;
     }
 
     ctx.drawImage(video, 0, 0);
 
     let dataURL = canvas.toDataURL('image/jpeg');
-    sendImage(dataURL);
+    socket.emit('input image', dataURL);
   }
 
   socket.on('connect', function() {
     console.log('Connected!');
   });
-
-  // socket.on('new image', function(newImageURL) {
-  //   image.src = newImageURL;
-  // });
 
   var constraints = {
     video: {
@@ -44,7 +35,7 @@ $(document).ready(function(){
     localMediaStream = stream;
 
     setInterval(function () {
-      snapshot();
+      sendSnapshot();
     }, 50);
   }).catch(function(error) {
     console.log(error);
