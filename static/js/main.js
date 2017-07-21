@@ -28,9 +28,9 @@ $(document).ready(function(){
     console.log('Connected!');
   });
 
-  socket.on('new image', function(newImageURL) {
-    image.src = newImageURL;
-  });
+  // socket.on('new image', function(newImageURL) {
+  //   image.src = newImageURL;
+  // });
 
   var constraints = {
     video: {

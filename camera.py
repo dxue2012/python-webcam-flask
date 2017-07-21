@@ -1,23 +1,30 @@
-import cv2
+from time import sleep
 
 
 class Camera(object):
     def __init__(self):
-        # Using OpenCV to capture from device 0. If you have trouble capturing
-        # from a webcam, comment the line below out and use a video file
-        # instead.
-        self.video = cv2.VideoCapture(0)
-        # If you decide to use video.mp4, you must have this file in the folder
-        # as the main.py.
-        # self.video = cv2.VideoCapture('video.mp4')
+        # input queue
+        self.to_process = []
 
-    def __del__(self):
-        self.video.release()
+        # output queue
+        self.to_output = []
+
+    def enqueueInput(self, input):
+        self.to_process.append(input)
+
+    def applyMakeup(self, img):
+        # TODO: actually do stuff here
+        return img
+
+    def processOne(self):
+        if not self.to_process:
+            return
+        input = self.to_process.pop(0)
+        output = self.applyMakeup(input)
+        self.to_output.append(output)
 
     def get_frame(self):
-        success, image = self.video.read()
-        # We are using Motion JPEG, but OpenCV defaults to capture raw images,
-        # so we must encode it into JPEG in order to correctly display the
-        # video stream.
-        ret, jpeg = cv2.imencode('.jpg', image)
-        return jpeg.tobytes()
+        while not self.to_output:
+            sleep(1)
+
+        return self.to_output.pop(0)
