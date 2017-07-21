@@ -5,16 +5,27 @@ from camera import Camera
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+app.config['DEBUG'] = True
 socketio = SocketIO(app)
 
 
-@socketio.on('my event')
-def test_message(message):
-    emit('my response', {'data': 'got it!'})
+# do something here!!!!!!!!!!!!!!!!
+def processImage(input):
+    """where the magic happens!"""
+    return input
 
-@socketio.on('connect')
+
+@socketio.on('input image', namespace='/test')
+def test_message(input):
+    print "got input image: {}".format(input)
+    result = processImage(input)
+    emit('new image', result)
+
+
+@socketio.on('connect', namespace='/test')
 def test_connect():
-    emit('my response', {'data': 'Connected'})
+    print "client connected"
+
 
 @app.route('/')
 def index():

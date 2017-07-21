@@ -1,16 +1,52 @@
 $(document).ready(function(){
-  var socket = io.connect('http://' + document.domain + ':' + location.port);
+  let namespace = "/test";
+  let video = document.querySelector("#videoElement");
+  let canvas = document.querySelector("#canvasElement");
+  let ctx = canvas.getContext('2d');
+  let image = document.querySelector("#imageElement");
+
+  var localMediaStream = null;
+
+  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+  function sendImage(dataURL) {
+    socket.emit('input image', dataURL);
+  }
+
+  function snapshot() {
+    if (!localMediaStream) {
+      return null;
+    }
+
+    ctx.drawImage(video, 0, 0);
+
+    let dataURL = canvas.toDataURL('image/jpeg');
+    sendImage(dataURL);
+  }
+
   socket.on('connect', function() {
-    socket.emit('my event', {data: 'I\'m connected!'});
+    console.log('Connected!');
   });
 
-  socket.on('my response', function(response) {
-    console.log('got response from server:' + response);
+  socket.on('new image', function(newImageURL) {
+    console.log('got response from server:' + newImageURL);
+    image.src = newImageURL;
   });
 
-  navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) {
-    var video = document.querySelector("#videoElement");
-    video.src = window.URL.createObjectURL(stream);
+  var constraints = {
+    video: {
+      width: { min: 640 },
+      height: { min: 360 }
+    }
+  };
+
+  navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    video.srcObject = stream;
+    localMediaStream = stream;
+
+    setInterval(function () {
+      snapshot();
+    }, 50);
   }).catch(function(error) {
     console.log(error);
   });

@@ -9,13 +9,17 @@
         <style>
          #container {
              margin: 0px auto;
-             width: 500px;
-             height: 375px;
              border: 10px #333 solid;
          }
          #videoElement {
-             width: 500px;
-             height: 375px;
+             width: 640px;
+             height: 360px;
+             background-color: #666;
+         }
+
+         #imageElement {
+             width: 640px;
+             height: 360px;
              background-color: #666;
          }
         </style>
@@ -24,6 +28,8 @@
         <div id="container">
             <video autoplay="true" id="videoElement">
             </video>
+            <img height="360px" width="640px" id="imageElement" src="">
+            <canvas id="canvasElement" style="display:none"></canvas>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
