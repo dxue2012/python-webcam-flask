@@ -4,17 +4,14 @@ from time import sleep
 
 
 class Camera(object):
-    def __init__(self):
+    def __init__(self, makeup_artist):
         self.to_process = []
         self.to_output = []
+        self.makeup_artist = makeup_artist
 
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
         thread.start()
-
-    def apply_makeup(self, img):
-        # TODO: actually do stuff here
-        return img
 
     def process_one(self):
         if not self.to_process:
@@ -22,7 +19,7 @@ class Camera(object):
         input_uri = self.to_process.pop(0)
         base64_str = input_uri.split(",")[1]
         bin_img = binascii.a2b_base64(base64_str)
-        output = self.apply_makeup(bin_img)
+        output = self.makeup_artist.apply_makeup(bin_img)
         self.to_output.append(output)
 
     def keep_processing(self):

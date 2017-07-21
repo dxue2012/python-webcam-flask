@@ -1,4 +1,5 @@
 from sys import stdout
+from makeup_artist import Makeup_artist
 import logging
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
@@ -10,7 +11,7 @@ app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
-camera = Camera()
+camera = Camera(Makeup_artist())
 
 
 @socketio.on('input image', namespace='/test')
