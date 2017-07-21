@@ -25,6 +25,7 @@
          #canvasElement {
              width: 640px;
              height: 480px;
+             display: none;
          }
         </style>
     </head>
@@ -32,7 +33,7 @@
         <div id="container">
             <video autoplay="true" id="videoElement">
             </video>
-            <img height="480px" width="640px" id="imageElement" src="{{ url_for('video_feed') }}">
+            <img id="imageElement" src="{{ url_for('video_feed') }}">
             <canvas id="canvasElement"></canvas>
         </div>
 
