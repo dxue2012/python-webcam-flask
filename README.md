@@ -16,4 +16,4 @@
 - heroku open
 
 ### Demo
-[Live Demo](python-stream-video.herokuapp.com)
+[Live Demo](https://python-stream-video.herokuapp.com)
