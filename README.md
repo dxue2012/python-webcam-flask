@@ -2,7 +2,7 @@
 
 ### Setup
 
-- setup heroku
+- setup heroku (`brew install heroku`)
 - Use a python virtualenv
 - run `pip install -r requirements.txt`
 
