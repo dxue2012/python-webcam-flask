@@ -1,9 +1,17 @@
 click==6.7
 Flask==0.12.2
+Flask-SocketIO==2.9.1
+gevent==1.2.2
+gevent-websocket==0.10.1
+greenlet==0.4.12
 gunicorn==19.7.1
 itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
 numpy==1.13.1
 opencv-python==3.2.0.7
+python-engineio==1.7.0
+python-socketio==1.7.7
+redis==2.10.5
+six==1.10.0
 Werkzeug==0.12.2

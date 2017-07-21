@@ -1,10 +1,20 @@
 from flask import Flask, render_template, Response
-
-# emulated camera
+from flask_socketio import SocketIO, emit
 from camera import Camera
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
+
+
+@socketio.on('my event')
+def test_message(message):
+    emit('my response', {'data': 'got it!'})
+
+@socketio.on('connect')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
 
 @app.route('/')
 def index():
@@ -31,4 +41,4 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, threaded=True)
+    socketio.run(app)
