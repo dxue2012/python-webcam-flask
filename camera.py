@@ -1,5 +1,4 @@
 import threading
-import binascii
 from time import sleep
 
 
@@ -16,11 +15,10 @@ class Camera(object):
     def process_one(self):
         if not self.to_process:
             return
-        input_uri = self.to_process.pop(0)
-        base64_str = input_uri.split(",")[1]
-        bin_img = binascii.a2b_base64(base64_str)
-        output = self.makeup_artist.apply_makeup(bin_img)
-        self.to_output.append(output)
+
+        input_img = self.to_process.pop(0)
+        output_img = self.makeup_artist.apply_makeup(input_img)
+        self.to_output.append(output_img)
 
     def keep_processing(self):
         while True:

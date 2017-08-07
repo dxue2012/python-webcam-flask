@@ -4,6 +4,7 @@ import logging
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
 from camera import Camera
+from utils import base64_to_pil_image, pil_image_to_base64
 
 
 app = Flask(__name__)
@@ -16,7 +17,8 @@ camera = Camera(Makeup_artist())
 
 @socketio.on('input image', namespace='/test')
 def test_message(input):
-    camera.enqueue_input(input)
+    input = input.split(",")[1]
+    camera.enqueue_input(base64_to_pil_image(input))
 
 
 @socketio.on('connect', namespace='/test')
@@ -35,7 +37,7 @@ def gen():
 
     app.logger.info("starting to generate frames!")
     while True:
-        frame = camera.get_frame()
+        frame = pil_image_to_base64(camera.get_frame())
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 

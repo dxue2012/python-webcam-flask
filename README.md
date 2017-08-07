@@ -27,3 +27,7 @@ IF NOT:
 
 ### Demo
 [Live Demo](https://python-stream-video.herokuapp.com)
+
+### Common Issues
+
+If you run into a 'protocol not found' error, see if [this stackoverflow answer helps](https://stackoverflow.com/questions/40184788/protocol-not-found-socket-getprotobyname).
