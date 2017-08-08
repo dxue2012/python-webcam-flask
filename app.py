@@ -18,7 +18,8 @@ camera = Camera(Makeup_artist())
 @socketio.on('input image', namespace='/test')
 def test_message(input):
     input = input.split(",")[1]
-    camera.enqueue_input(base64_to_pil_image(input))
+    camera.enqueue_input(input)
+    #camera.enqueue_input(base64_to_pil_image(input))
 
 
 @socketio.on('connect', namespace='/test')
@@ -37,7 +38,7 @@ def gen():
 
     app.logger.info("starting to generate frames!")
     while True:
-        frame = pil_image_to_base64(camera.get_frame())
+        frame = camera.get_frame() #pil_image_to_base64(camera.get_frame())
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
