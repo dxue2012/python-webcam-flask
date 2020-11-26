@@ -1,5 +1,13 @@
 This is a toy project for learning how to use a couple of python libraries. 
 
+### Repo status
+
+This repo is **unmaintained**. I guess I never intended for others to use this (and never imagined my terrible code would be of any value to others), but I recognize that a nonzero number of people have stumbled upon this repo and may have found it useful as a reference.
+Given that, even though I do not plan on maintaining this repo, I am happy for people to 
+
+1) submit pull requests to fix known issues (there are quite a few), or to 
+2) fork and make your own version. I'd be happy to link to a better maintained fork for future readers' benefit.
+
 ### What it does
 
 1) The web client sends video stream data (from the user's webcam) to a flask server using socketio
