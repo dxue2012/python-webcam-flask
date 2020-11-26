@@ -16,6 +16,10 @@ Given that, even though I do not plan on maintaining this repo, I am happy for p
 
 In the demo site, the server is simply flipping the image horizontally. You could imagine it doing something more sophisticated (e.g. applying some filters), but obviously I was too lazy to implement anything cool.
 
+### Known issues
+
+- The server does not handle multiple clients well. If multiple clients connect, the server treats them as one and sends back mixed frames as a result.
+
 ### Demo
 [Live Demo](https://python-stream-video.herokuapp.com)
 
