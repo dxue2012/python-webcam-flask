@@ -19,4 +19,4 @@ python-engineio==1.7.0
 python-socketio==1.7.7
 redis==2.10.5
 six==1.10.0
-Werkzeug==0.12.2
+Werkzeug==0.15.3
