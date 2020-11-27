@@ -3,7 +3,7 @@ $(document).ready(function(){
   let video = document.querySelector("#videoElement");
   let canvas = document.querySelector("#canvasElement");
   let ctx = canvas.getContext('2d');
-
+  photo = document.getElementById('photo');
   var localMediaStream = null;
 
   var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
@@ -17,6 +17,19 @@ $(document).ready(function(){
 
     let dataURL = canvas.toDataURL('image/jpeg');
     socket.emit('input image', dataURL);
+
+    socket.emit('output image')
+
+    var img = new Image();
+    socket.on('out-image-event',function(data){
+
+
+    img.src = dataURL//data.image_data
+    photo.setAttribute('src', data.image_data);
+
+    });
+
+
   }
 
   socket.on('connect', function() {

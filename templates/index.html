@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta content="ugh, hi." name="description">
         <meta content="Makeup Webcam" name="title">
-        <title>Makeup Webcam</title>
+        <title>Face Detection</title>
         <style>
          #container {
              margin: 0px auto;
@@ -13,6 +13,7 @@
          #videoElement {
              width: 640px;
              height: 480px;
+             display: none;
              background-color: #666;
          }
 
@@ -25,19 +26,28 @@
          #canvasElement {
              width: 640px;
              height: 480px;
-             display: none;
+             border: 1px solid black;
+         }
+         #photo {
+             width: 640px;
+             height: 480px;
+
+             border: 1px solid black;
          }
         </style>
     </head>
     <body>
         <div id="container">
-            <video autoplay="true" id="videoElement">
-            </video>
-            <img id="imageElement" src="{{ url_for('video_feed') }}">
-            <canvas id="canvasElement"></canvas>
+            <div>
+            <video autoplay="true" id="videoElement"></video>
+                <canvas id="canvasElement"></canvas>
+
+                <img id="photo">
+            </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     </body>

@@ -2,7 +2,7 @@ from sys import stdout
 from makeup_artist import Makeup_artist
 import logging
 from flask import Flask, render_template, Response
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
 from camera import Camera
 from utils import base64_to_pil_image, pil_image_to_base64
 
@@ -19,6 +19,11 @@ camera = Camera(Makeup_artist())
 def test_message(input):
     input = input.split(",")[1]
     camera.enqueue_input(input)
+    image_data = input # Do your magical Image processing here!!
+    #image_data = image_data.decode("utf-8")
+    image_data = "data:image/jpeg;base64," + image_data
+    print("OUTPUT " + image_data)
+    emit('out-image-event', {'image_data': image_data}, namespace='/test')
     #camera.enqueue_input(base64_to_pil_image(input))
 
 
